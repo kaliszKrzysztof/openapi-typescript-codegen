@@ -57,9 +57,7 @@ export async function request(options: ApiRequestOptions): Promise<ApiResult> {
     const url = getUrl(options);
 
     // Pre-hook on request if a function is provided.
-    const requestHookResult = OpenAPI.REQUEST_HOOK ?
-        (await OpenAPI.REQUEST_HOOK({ url, options})) : { url, options };
-
+    const requestHookResult = OpenAPI.REQUEST_HOOK ? (await OpenAPI.REQUEST_HOOK({ url, options })) : { url, options };
 
     const response = await sendRequest(requestHookResult.options, requestHookResult.url);
     const responseBody = await getResponseBody(response);
@@ -75,10 +73,9 @@ export async function request(options: ApiRequestOptions): Promise<ApiResult> {
     };
 
     // Post-request Hook if provided
-    result =  OpenAPI.RESPONSE_HOOK ? await OpenAPI.RESPONSE_HOOK({url, result, response}) : result;
+    result = OpenAPI.RESPONSE_HOOK ? await OpenAPI.RESPONSE_HOOK({ url, result, response }) : result;
 
     catchErrors(options, result);
-
 
     return result;
 }

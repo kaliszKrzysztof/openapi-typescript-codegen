@@ -57,22 +57,14 @@ exports[`v2 should generate: ./test/generated/v2/core/OpenAPI.ts 1`] = `
 "/* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-<<<<<<< HEAD
 import type { ApiRequestOptions } from './ApiRequestOptions';
+import { ApiResult } from './ApiResult';
 
 type Resolver<T> = (options: ApiRequestOptions) => Promise<T>;
-=======
+type Headers = Record<string, string>;
 
 type ResponseImplementation = Response;
 
-
-
-type Resolver<T> = () => Promise<T>;
->>>>>>> hook/master
-type Headers = Record<string, string>;
-
-import { ApiResult } from './ApiResult';
-import { ApiRequestOptions } from './ApiRequestOptions';
 
 export interface RequestHookParams {
     url: string;
@@ -301,9 +293,7 @@ export async function request(options: ApiRequestOptions): Promise<ApiResult> {
     const url = getUrl(options);
 
     // Pre-hook on request if a function is provided.
-    const requestHookResult = OpenAPI.REQUEST_HOOK ?
-        (await OpenAPI.REQUEST_HOOK({ url, options})) : { url, options };
-
+    const requestHookResult = OpenAPI.REQUEST_HOOK ? (await OpenAPI.REQUEST_HOOK({ url, options })) : { url, options };
 
     const response = await sendRequest(requestHookResult.options, requestHookResult.url);
     const responseBody = await getResponseBody(response);
@@ -319,10 +309,9 @@ export async function request(options: ApiRequestOptions): Promise<ApiResult> {
     };
 
     // Post-request Hook if provided
-    result =  OpenAPI.RESPONSE_HOOK ? await OpenAPI.RESPONSE_HOOK({url, result, response}) : result;
+    result = OpenAPI.RESPONSE_HOOK ? await OpenAPI.RESPONSE_HOOK({ url, result, response }) : result;
 
     catchErrors(options, result);
-
 
     return result;
 }"
@@ -2442,22 +2431,14 @@ exports[`v3 should generate: ./test/generated/v3/core/OpenAPI.ts 1`] = `
 "/* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-<<<<<<< HEAD
 import type { ApiRequestOptions } from './ApiRequestOptions';
+import { ApiResult } from './ApiResult';
 
 type Resolver<T> = (options: ApiRequestOptions) => Promise<T>;
-=======
+type Headers = Record<string, string>;
 
 type ResponseImplementation = Response;
 
-
-
-type Resolver<T> = () => Promise<T>;
->>>>>>> hook/master
-type Headers = Record<string, string>;
-
-import { ApiResult } from './ApiResult';
-import { ApiRequestOptions } from './ApiRequestOptions';
 
 export interface RequestHookParams {
     url: string;
@@ -2686,9 +2667,7 @@ export async function request(options: ApiRequestOptions): Promise<ApiResult> {
     const url = getUrl(options);
 
     // Pre-hook on request if a function is provided.
-    const requestHookResult = OpenAPI.REQUEST_HOOK ?
-        (await OpenAPI.REQUEST_HOOK({ url, options})) : { url, options };
-
+    const requestHookResult = OpenAPI.REQUEST_HOOK ? (await OpenAPI.REQUEST_HOOK({ url, options })) : { url, options };
 
     const response = await sendRequest(requestHookResult.options, requestHookResult.url);
     const responseBody = await getResponseBody(response);
@@ -2704,10 +2683,9 @@ export async function request(options: ApiRequestOptions): Promise<ApiResult> {
     };
 
     // Post-request Hook if provided
-    result =  OpenAPI.RESPONSE_HOOK ? await OpenAPI.RESPONSE_HOOK({url, result, response}) : result;
+    result = OpenAPI.RESPONSE_HOOK ? await OpenAPI.RESPONSE_HOOK({ url, result, response }) : result;
 
     catchErrors(options, result);
-
 
     return result;
 }"
@@ -4920,6 +4898,7 @@ export class ParametersService {
     /**
      * @param parameterHeader This is the parameter that goes into the header
      * @param parameterQuery This is the parameter that goes into the query params
+     * @param parameterQueryMany This is the parameter that goes into the query params
      * @param parameterForm This is the parameter that goes into the form data
      * @param parameterCookie This is the parameter that goes into the cookie
      * @param parameterPath This is the parameter that goes into the path
@@ -4929,6 +4908,7 @@ export class ParametersService {
     public static async callWithParameters(
         parameterHeader: string | null,
         parameterQuery: string | null,
+        parameterQueryMany: number | null,
         parameterForm: string | null,
         parameterCookie: string | null,
         parameterPath: string | null,
@@ -4945,6 +4925,7 @@ export class ParametersService {
             },
             query: {
                 'parameterQuery': parameterQuery,
+                'parameterQueryMany': parameterQueryMany,
             },
             formData: {
                 'parameterForm': parameterForm,

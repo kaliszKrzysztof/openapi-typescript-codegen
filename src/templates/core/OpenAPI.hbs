@@ -1,16 +1,14 @@
 {{>header}}
 
 import type { ApiRequestOptions } from './ApiRequestOptions';
+import type { ApiResult } from './ApiResult';
 
 type Resolver<T> = (options: ApiRequestOptions) => Promise<T>;
+type Headers = Record<string, string>;
+
 {{#equals @root.httpClient 'fetch'}}{{>fetch/responseType}}{{/equals}}
 {{#equals @root.httpClient 'xhr'}}{{>xhr/responseType}}{{/equals}}
 {{#equals @root.httpClient 'node'}}{{>node/responseType}}{{/equals}}
-type Headers = Record<string, string>;
-
-import { ApiResult } from './ApiResult';
-import { ApiRequestOptions } from './ApiRequestOptions';
-
 export interface RequestHookParams {
     url: string;
     options: ApiRequestOptions;
