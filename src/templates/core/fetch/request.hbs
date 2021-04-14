@@ -69,7 +69,7 @@ export async function request(options: ApiRequestOptions): Promise<ApiResult> {
         ok: response.ok,
         status: response.status,
         statusText: response.statusText,
-        body: responseHeader || responseBody
+        body: responseHeader || responseBody,
     };
 
     // Post-request Hook if provided
