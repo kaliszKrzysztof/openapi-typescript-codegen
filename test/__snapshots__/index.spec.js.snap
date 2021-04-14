@@ -81,8 +81,8 @@ type Config = {
     BASE: string;
     VERSION: string;
     WITH_CREDENTIALS: boolean;
-    REQUEST_HOOK?(params: RequestHookParams): Promise<RequestHookParams>;
-    RESPONSE_HOOK?(result: ResponseHookParams): Promise<ApiResult>
+    REQUEST_HOOK?: (params: RequestHookParams) => Promise<RequestHookParams>;
+    RESPONSE_HOOK?: (result: ResponseHookParams) => Promise<ApiResult>;
     TOKEN?: string | Resolver<string>;
     USERNAME?: string | Resolver<string>;
     PASSWORD?: string | Resolver<string>;
@@ -305,7 +305,7 @@ export async function request(options: ApiRequestOptions): Promise<ApiResult> {
         ok: response.ok,
         status: response.status,
         statusText: response.statusText,
-        body: responseHeader || responseBody
+        body: responseHeader || responseBody,
     };
 
     // Post-request Hook if provided
@@ -2455,8 +2455,8 @@ type Config = {
     BASE: string;
     VERSION: string;
     WITH_CREDENTIALS: boolean;
-    REQUEST_HOOK?(params: RequestHookParams): Promise<RequestHookParams>;
-    RESPONSE_HOOK?(result: ResponseHookParams): Promise<ApiResult>
+    REQUEST_HOOK?: (params: RequestHookParams) => Promise<RequestHookParams>;
+    RESPONSE_HOOK?: (result: ResponseHookParams) => Promise<ApiResult>;
     TOKEN?: string | Resolver<string>;
     USERNAME?: string | Resolver<string>;
     PASSWORD?: string | Resolver<string>;
@@ -2679,7 +2679,7 @@ export async function request(options: ApiRequestOptions): Promise<ApiResult> {
         ok: response.ok,
         status: response.status,
         statusText: response.statusText,
-        body: responseHeader || responseBody
+        body: responseHeader || responseBody,
     };
 
     // Post-request Hook if provided
